@@ -20,7 +20,7 @@ export class RowAdapter {
   readonly rowNumber: number;
   readonly rawData: string[];
   readonly page: string;
-  readonly discovery: string;
+  readonly discoveryDate: string;
   readonly description: string;
   readonly type: Type;
   readonly platform: Platform;
@@ -30,13 +30,13 @@ export class RowAdapter {
   readonly hurdle: string;
   readonly state: State;
   readonly ascentDate: string;
-  readonly completion: string;
+  readonly completionDate: string;
 
   constructor(row: GoogleSpreadsheetRow) {
     this.rowNumber = row._rowNumber;
     this.rawData = row._rawData;
     this.page = row['Página'];
-    this.discovery = row['Descoberta'];
+    this.discoveryDate = row['Descoberta (data)'];
     this.description = row['Descrição'];
     this.type = row['Tipo'];
     this.platform = row['Erro'];
@@ -46,7 +46,7 @@ export class RowAdapter {
     this.hurdle = row['Empecilho'];
     this.state = row['Estado'];
     this.ascentDate = row['Subida (data)'];
-    this.completion = row['Conclusão (data)'];
+    this.completionDate = row['Conclusão (data)'];
   }
 }
 
