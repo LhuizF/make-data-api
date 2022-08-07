@@ -27,7 +27,7 @@ export class Spreadsheet {
     return this.privateKey.replace(/\\n/g, '\n');
   }
 
-  async getRows(sheetName: string): Promise<any> {
+  async getRows(sheetName: string): Promise<RowAdapter[]> {
     await this.init();
 
     const page = this.spreadSheet.sheetsByTitle[sheetName];
