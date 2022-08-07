@@ -1,4 +1,5 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
+import { RowAdapter } from '../adapter';
 
 export class Spreadsheet {
   private spreadSheet: GoogleSpreadsheet;
@@ -29,8 +30,12 @@ export class Spreadsheet {
   async getRows(sheetName: string): Promise<any> {
     await this.init();
 
-    const rows = this.spreadSheet.sheetsByTitle[sheetName];
-
-    return await rows.getRows();
+    const page = this.spreadSheet.sheetsByTitle[sheetName];
+    const limit = 100;
+    const rows = await page.getRows({
+      limit,
+      offset: page.rowCount - limit
+    });
+    return rows.map((row) => new RowAdapter(row));
   }
 }
