@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { RowAdapter, Type } from '../../adapter';
 import { Spreadsheet } from '../../config/googleSheets';
+import { formatDate } from '../../utils';
 
 interface Params {
   pageName: string;
@@ -23,9 +24,8 @@ export class MakeData {
     );
 
     const rows = await spreadsheet.getRows(pageName);
-
     const filteredRows = rows.filter((row) => {
-      const date = new Date(row.discoveryDate);
+      const date = formatDate(row.discoveryDate);
       return date >= new Date(dateStart) && date <= new Date(dateEnd);
     });
 
