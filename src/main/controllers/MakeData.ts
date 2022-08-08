@@ -12,6 +12,10 @@ export class MakeData {
   async handle(req: Request, res: Response) {
     const { pageName, dateStart, dateEnd } = req.query as unknown as Params;
 
+    if (!pageName || !dateStart || !dateEnd) {
+      return res.status(400).send('Missing params');
+    }
+
     const spreadsheet = new Spreadsheet(
       process.env.PRIVATE_KEY as string,
       process.env.CLIENT_EMAIL as string,
