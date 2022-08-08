@@ -1,11 +1,10 @@
 import { Router } from 'express';
+import { MakeData } from '../controllers/MakeData';
 
 export default () => {
   const router = Router();
 
-  router.get('/', (req, res) => {
-    res.send('Hello World!');
-  });
+  router.get('/', new MakeData().handle);
 
   return router;
 };

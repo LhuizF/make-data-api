@@ -1,10 +1,10 @@
 import { GoogleSpreadsheetRow } from 'google-spreadsheet';
 
-type Type = 'Feature' | 'Bug fix' | 'Hot fix';
+export type Type = 'Feature' | 'Bug fix' | 'Hot fix';
 
 type Platform = 'Desktop' | 'Android' | 'IOS';
 
-type State =
+export type State =
   | 'Em análise'
   | 'Enviado para validação'
   | 'Desenvolvimento'
@@ -34,19 +34,19 @@ export class RowAdapter {
 
   constructor(row: GoogleSpreadsheetRow) {
     this.rowNumber = row._rowNumber;
-    this.rawData = row._rawData;
-    this.page = row['Página'];
+    //this.rawData = row._rawData;
+    //this.page = row['Página'];
     this.discoveryDate = row['Descoberta (data)'];
-    this.description = row['Descrição'];
+    //this.description = row['Descrição'];
     this.type = row['Tipo'];
-    this.platform = row['Erro'];
-    this.image = row['Mídia'];
-    this.teamUX = row['Time UX'];
-    this.teamTI = row['Time TI'];
-    this.hurdle = row['Empecilho'];
-    this.state = row['Estado'];
-    this.ascentDate = row['Subida (data)'];
-    this.completionDate = row['Conclusão (data)'];
+    //this.platform = row['Erro'];
+    //this.image = row['Mídia'];
+    //this.teamUX = row['Time UX'];
+    //this.teamTI = row['Time TI'];
+    //this.hurdle = row['Empecilho'];
+    this.state = row['Estado em Qualidade'] || row['Estado'] || 'Em aberto';
+    //this.ascentDate = row['Subida (data)'];
+    //this.completionDate = row['Conclusão (data)'];
   }
 }
 
