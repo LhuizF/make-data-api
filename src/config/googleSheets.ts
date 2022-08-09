@@ -31,11 +31,8 @@ export class Spreadsheet {
     await this.init();
 
     const page = this.spreadSheet.sheetsByTitle[sheetName];
-    const limit = 100;
-    const rows = await page.getRows({
-      limit,
-      offset: page.rowCount - limit
-    });
+
+    const rows = await page.getRows();
     return rows.map((row) => new RowAdapter(row));
   }
 }

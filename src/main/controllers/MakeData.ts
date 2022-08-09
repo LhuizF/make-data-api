@@ -24,7 +24,7 @@ export class MakeData {
         process.env.SPREAD_SHEET_ID as string
       );
 
-      const rows = await spreadsheet.getRows(pageName);
+      const rows = await spreadsheet.getRows(pageName.replace('-', ' '));
       const filteredRows = rows.filter((row) => {
         const date = formatDate(row.discoveryDate);
         return date >= new Date(dateStart) && date <= new Date(dateEnd);
@@ -64,7 +64,7 @@ export class MakeData {
       return res.json({ result, total: filteredRows.length });
     } catch (err) {
       console.log(err);
-      res.status(500).send('Internal server error');
+      res.status(500).json({ err: 'Internal server error :(' });
     }
   }
 }
