@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { RowAdapter, Type } from '../../adapter';
 import { Spreadsheet } from '../../config/googleSheets';
 import { formatDate } from '../../utils';
+import { makeMarkdown } from '../services';
 
 interface Params {
   pageName: string;
@@ -41,7 +42,7 @@ export class MakeData {
         }
       });
 
-      const itens = new Map<Type, unknown>();
+      const itens = new Map<Type, { [type: string]: number }>();
 
       typeStats.forEach((type, key) => {
         const stateStats = {
@@ -61,7 +62,9 @@ export class MakeData {
 
       const result = Object.fromEntries([...itens.entries()]);
 
-      return res.json({ result, total: filteredRows.length });
+      const markdown = makeMarkdown(result);
+
+      return res.json({ result, total: filteredRows.length, markdown });
     } catch (err) {
       console.log(err);
       res.status(500).json({ err: 'Internal server error :(' });
